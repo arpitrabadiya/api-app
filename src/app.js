@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyparser = require('body-parser')
 
+
 const app = express()
 app.use(express.json())
 
@@ -29,7 +30,13 @@ app.post("/",async(req,res)=>{
     console.log(token);
     let url ="https://api.dexscreener.com/latest/dex/tokens/"+token;
 
-    let response = await fetch(url);
+    let response;
+    try{
+        response = await fetch(url);
+    }
+    catch(err1){
+        console.log(1);
+    }  
     const data= await response.json();
     const arrData = [data];
     let newdata = arrData[0].pairs
