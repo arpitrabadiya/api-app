@@ -11,12 +11,19 @@ app.use(express.static('public'))
 
 
 app.get("/",async(req,res)=>{
-    let limit = []
-    res.render("task", {data: limit})
+    try{
+        let limit = []
+        res.render("task", {data: limit})
+    }
+    catch(err){
+        console.log(err);
+    }
+    
 })
 
 app.post("/",async(req,res)=>{
-    let token = req.body.token
+    try{
+        let token = req.body.token
 
     if(token===undefined) token="0x7213a321F1855CF1779f42c0CD85d3D95291D34C"
     console.log(token);
@@ -36,10 +43,14 @@ app.post("/",async(req,res)=>{
 
     limit.sort((a, b) => parseFloat(b.priceUsd) - parseFloat(a.priceUsd));
     res.render("task", {data: limit})
-    
+    }
+    catch(err){
+        console.log(err);
+    }
 })
 
 let port = process.env.PORT || 3000
 app.listen(port,()=>{
-    console.log("App Started...");
+    console.log("App Started on...");
+    console.log(port);
 })
